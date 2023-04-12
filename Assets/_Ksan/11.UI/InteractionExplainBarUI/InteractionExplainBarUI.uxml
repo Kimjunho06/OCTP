@@ -1,0 +1,5 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="ExplainBar" style="position: absolute; width: 300px; height: 50px; background-color: rgb(255, 255, 255); border-top-left-radius: 10px; border-bottom-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; align-items: center; justify-content: center;">
+        <ui:Label text="설명" display-tooltip-when-elided="true" name="ExplainText" style="color: rgb(0, 0, 0); font-size: 16px; -unity-font-style: normal; -unity-text-align: upper-center;" />
+    </ui:VisualElement>
+</ui:UXML>

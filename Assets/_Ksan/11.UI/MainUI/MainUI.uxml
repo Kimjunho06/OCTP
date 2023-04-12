@@ -1,0 +1,4 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/_Ksan/11.UI/Main.uss?fileID=7433441132597879392&amp;guid=94414fe397099344dac8ebde7a4b24c1&amp;type=3#Main" />
+    <ui:VisualElement class="mainPanel" />
+</ui:UXML>
