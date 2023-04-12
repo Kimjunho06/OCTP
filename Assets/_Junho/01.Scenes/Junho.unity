@@ -236,11 +236,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d8dc8f714bf6f148a984738584a04ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactionKey: 102
-  upKey: 119
-  downKey: 115
-  leftKey: 97
-  rightKey: 100
+  interactionKey: 97
+  upKey: 273
+  downKey: 274
+  leftKey: 276
+  rightKey: 275
+  dashKey: 304
+  rollingKey: 306
 --- !u!114 &18236915
 MonoBehaviour:
   m_ObjectHideFlags: 0

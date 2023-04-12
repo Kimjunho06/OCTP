@@ -17,6 +17,8 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         _inputManager.OnMoveEvent += OnMove;
+        _inputManager.OnDashEvent += OnDash;
+        _inputManager.OnRollingEvent += OnRolling;
     }
 
     private void OnMove(Vector3 pos)
@@ -25,4 +27,20 @@ public class PlayerMovement : MonoBehaviour
         transform.position += dir * moveSpeed * Time.deltaTime;
         print(pos);
     }
+
+    private void OnDash(Vector3 dir)
+    {
+        print(dir + " 방향으로 대쉬");
+    }
+
+    private void OnRolling(Vector3 dir)
+    {
+        print(dir + " 방향으로 구르기");
+    }
+
+    IEnumerator CoolDown(float cool)
+    {
+        yield return new WaitForSeconds(cool);
+    }
+
 }
