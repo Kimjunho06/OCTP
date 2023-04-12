@@ -22,7 +22,7 @@ public class PlayerRange : MonoBehaviour
     private void Update()
     {
         CheckRange();
-        print(obj);
+        // print(obj);
     }
 
     private void CheckRange()
