@@ -7,8 +7,7 @@ public class InputManager : MonoBehaviour
 {
     // Event
     public Action OnInteractionEvent;
-    public Action<Vector3> OnMoveEvent;
-    public Action<Vector3> OnRotateEvent;
+    public Action<Vector3> OnMoveEvnet;
     public Action<Vector3> OnDashEvent;
     public Action<Vector3> OnRollingEvent;
     
@@ -27,9 +26,8 @@ public class InputManager : MonoBehaviour
 
     private void Update()
     {
-        OnMove();
-        OnRotate();
         OnInteraction();
+        OnMove();
         OnDash();
         OnRolling();
     }
@@ -44,25 +42,12 @@ public class InputManager : MonoBehaviour
 
     private void OnMove()
     {
+        Vector3 dir = Vector3.zero;
+
         if (Input.GetKey(_upKey))
         {
-            OnMoveEvent?.Invoke(transform.forward);
+            OnMoveEvnet?.Invoke(dir);
         }
-     
-        if (Input.GetKey(_downKey))
-        {
-            OnMoveEvent?.Invoke(transform.forward * -1);
-        }
-    }
-
-    private void OnRotate()
-    {
-        float hor = 0;
-
-        if (Input.GetKey(_leftKey)) hor = -1;
-        if (Input.GetKey(_rightKey)) hor = 1;
-
-        OnRotateEvent?.Invoke(new Vector3(0, hor, 0));
     }
 
     private void OnDash()

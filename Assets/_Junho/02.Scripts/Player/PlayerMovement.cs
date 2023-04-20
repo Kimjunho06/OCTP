@@ -17,20 +17,14 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
-        _inputManager.OnMoveEvent += OnMove;
         _inputManager.OnDashEvent += OnDash;
         _inputManager.OnRollingEvent += OnRolling;
-        _inputManager.OnRotateEvent += OnRotate;
+        _inputManager.OnMoveEvnet += OnMove;
     }
 
     private void OnMove(Vector3 dir)
     {
-        transform.position += dir * Time.deltaTime * _moveSpeed;
-    }
-
-    private void OnRotate(Vector3 dir)
-    {
-        transform.eulerAngles += dir * _rotateSpeed * Time.deltaTime;   
+        transform.position += dir * _moveSpeed * Time.deltaTime;
     }
 
     private void OnDash(Vector3 dir)
