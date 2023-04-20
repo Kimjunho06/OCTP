@@ -236,11 +236,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d8dc8f714bf6f148a984738584a04ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactionKey: 102
-  upKey: 119
-  downKey: 115
-  leftKey: 97
-  rightKey: 100
+  interactionKey: 97
+  upKey: 273
+  downKey: 274
+  leftKey: 276
+  rightKey: 275
+  dashKey: 304
+  rollingKey: 306
 --- !u!114 &18236915
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -381,6 +383,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &224121778
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 224121779}
+  m_Layer: 0
+  m_Name: TEst
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &224121779
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 224121778}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 115.186775, y: -44.998577, z: 74.47102}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &305103446
 GameObject:
   m_ObjectHideFlags: 0
