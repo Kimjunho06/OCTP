@@ -6,8 +6,8 @@ namespace Core{
 
 public class Define 
 {
-    private Camera mainCamera = null;
-    public Camera MainCamera {
+    private static Camera mainCamera = null;
+    public static Camera MainCamera {
         get{
             if(mainCamera == null) mainCamera = Camera.main;
             return mainCamera;
