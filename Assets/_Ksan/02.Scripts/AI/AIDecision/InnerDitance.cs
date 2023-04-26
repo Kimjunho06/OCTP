@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class InnerDitance : AIDecision
 {
-    [Range(0.1f, 30f)]
+    [Range(0.1f, 100f)]
     public float distance = 5f;
 
     public override bool MakeADecision()
     {
-        float calc = Vector2.Distance(_brain.target.position, transform.position);
+        float calc = Vector2.Distance(_brain.Player.transform.position, transform.position);
 
         if(calc < distance){
             return true;

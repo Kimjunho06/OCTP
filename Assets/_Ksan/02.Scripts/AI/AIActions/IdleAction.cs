@@ -6,6 +6,6 @@ public class IdleAction : AIAction
 {
     public override void TakeAction()
     {
-        _brain.Move(Vector3.zero, true);
+        _brain.Move(false, Vector3.zero);
     }
 }
