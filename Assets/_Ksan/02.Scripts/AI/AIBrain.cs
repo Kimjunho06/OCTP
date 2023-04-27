@@ -19,11 +19,13 @@ public class AIBrain : MonoBehaviour, IDamageable
     //공격 스크립트 넣어두는 리스트 만들어둬야 함
     public EnemyAttack[] _attackActions = { };
 
-    public bool IsDamaged { get; private set; } = false;
+    public bool IsBattled { get; private set; } = false;
+    public HP hp { get; private set; }
 
     private void Awake() {
         Player = GameObject.FindGameObjectWithTag("Player");
         _stateInfo = transform.Find("AI").GetComponent<AIStateInfo>();
+        hp = GameObject.Find("HP").GetComponent<HP>();
         Agent = GetComponent<NavMeshAgent>();
         Debug.Log(Agent);
         rigid = GetComponent<Rigidbody>();
@@ -47,7 +49,7 @@ public class AIBrain : MonoBehaviour, IDamageable
     protected virtual void Update() {
         _currentState.UpdateState();
         if(Input.GetKeyUp(KeyCode.Space))
-            IsDamaged = true;
+            IsBattled = true;
         //StateInfo에 쿨들을 샐성해두고 쿨 관리해야함
         SkillCollDown();
     }
@@ -73,8 +75,9 @@ public class AIBrain : MonoBehaviour, IDamageable
 
     public void OnDamage(float damage)
     {
-        IsDamaged = true;
+        IsBattled = true;
+        hp.DamagedHealth(damage);
     }
 
-    public void IsOffDamaged() => IsDamaged = false;
+    public void IsOffBattleState() => IsBattled = false;
 }

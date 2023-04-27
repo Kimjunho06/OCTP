@@ -6,6 +6,6 @@ public class Damaged : AIDecision
 {
     public override bool MakeADecision()
     {
-        return _brain.IsDamaged;
+        return _brain.IsBattled;
     }
 }
