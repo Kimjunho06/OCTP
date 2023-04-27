@@ -25,7 +25,7 @@ public class AIBrain : MonoBehaviour, IDamageable
     private void Awake() {
         Player = GameObject.FindGameObjectWithTag("Player");
         _stateInfo = transform.Find("AI").GetComponent<AIStateInfo>();
-        hp = GameObject.Find("HP").GetComponent<HP>();
+        hp = transform.Find("HP").GetComponent<HP>();
         Agent = GetComponent<NavMeshAgent>();
         Debug.Log(Agent);
         rigid = GetComponent<Rigidbody>();

@@ -23,7 +23,7 @@ public class HP : MonoBehaviour
     {
         crtHP = maxHP;
         _mainCam = Camera.main;
-        _brain = GameObject.Find("Monster").GetComponent<AIBrain>();
+        _brain = transform.parent.GetComponent<AIBrain>();
         _document = GetComponent<UIDocument>();
     }
 
@@ -36,7 +36,8 @@ public class HP : MonoBehaviour
 
     private void LateUpdate()
     {
-        ResetHealth();
+        //ResetHealth();
+        _healthBar.visible = true;
 
         Vector3 worldPos = _brain.transform.position;
         Vector2 uiPos = RuntimePanelUtils.CameraTransformWorldToPanel(_root.panel, worldPos, _mainCam);
