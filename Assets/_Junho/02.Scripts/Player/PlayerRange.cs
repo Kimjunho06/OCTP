@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerRange : MonoBehaviour
 {
@@ -24,6 +25,8 @@ public class PlayerRange : MonoBehaviour
 
     private void CheckRange()
     {
+        SceneManager.LoadScene("a", LoadSceneMode.Additive);
+
         _cols = Physics.OverlapSphere(transform.position, _radius, _getLayer);
 
         float closeDis = 1000;

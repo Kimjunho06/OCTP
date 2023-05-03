@@ -43,10 +43,10 @@ public class EventManager : MonoBehaviour
 
     public void ChangeCharacter(MeshFilter changeCharacterForm, STATE state)
     {
-        if (/*_playerForm.mesh != changeCharacterForm &&*/ _state != state)
+        if (/* _playerForm.mesh != changeCharacterForm &&*/ _state != state)
         {
             ClearForm(); 
-            //_playerForm.mesh = changeCharacterForm.mesh;
+            // _playerForm.mesh = changeCharacterForm.mesh;
             _state = state;
 
             ChangeForm(state);
