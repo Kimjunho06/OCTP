@@ -48,8 +48,11 @@ public class AIBrain : MonoBehaviour, IDamageable
 
     protected virtual void Update() {
         _currentState.UpdateState();
-        if(Input.GetKeyUp(KeyCode.Space))
-            IsBattled = true;
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            OnDamage(10);
+        }
+
         //StateInfo에 쿨들을 샐성해두고 쿨 관리해야함
         SkillCollDown();
     }
@@ -77,6 +80,15 @@ public class AIBrain : MonoBehaviour, IDamageable
     {
         IsBattled = true;
         hp.DamagedHealth(damage);
+
+        if (hp.crtHP <= 0)
+            DeathMob(); // 나중에 코드 수정 필요
+    }
+
+    private void DeathMob()
+    {
+        //임시
+        Destroy(gameObject);
     }
 
     public void IsOffBattleState() => IsBattled = false;
