@@ -8,8 +8,8 @@ using UnityEngine.UIElements;
 public class HP : MonoBehaviour
 {
     [SerializeField]
-    public  float maxHP;
-    private float crtHP;
+    public float maxHP;
+    public float crtHP { get; private set; }
 
     private AIBrain _brain;
     private Camera _mainCam;
@@ -36,38 +36,46 @@ public class HP : MonoBehaviour
 
     private void LateUpdate()
     {
-        //ResetHealth();
-        _healthBar.visible = true;
+        ShowHPBar();
+
+    }
+
+    private void ShowHPBar()
+    {
+        float dist = Vector3.Distance(_brain.transform.position, _brain.Player.transform.position);
+
+        if (!_brain.IsBattled || dist > 20)
+        {
+            _healthBar.visible = false;
+            return;
+        }
+        else
+            _healthBar.visible = true;
 
         Vector3 worldPos = _brain.transform.position;
         Vector2 uiPos = RuntimePanelUtils.CameraTransformWorldToPanel(_root.panel, worldPos, _mainCam);
 
         float deltaY = -100f;
 
-
         _healthBar.style.left = uiPos.x - _healthBar.layout.width * 0.5f;
         _healthBar.style.top = uiPos.y + deltaY;
+
+        //거리가 50까지 보인다고 하면
+        Vector3 scale = Vector3.one * Mathf.Lerp(0, 1f, 1 - dist / 20);
+        scale.z = 0;
+
+        _healthBar.style.scale = new Scale(scale);
     }
 
     public void OnHealthBarUpdate()
     {
-        _bar.style.width = new Length(crtHP / maxHP, LengthUnit.Percent);
-        _healthBar.visible = true;
+        _bar.style.width = new Length(crtHP / maxHP * 100, LengthUnit.Percent);
     }
 
     public void DamagedHealth(float damage)
     {
         crtHP -= damage;
         OnHealthBarUpdate();
-    }
-
-    public void ResetHealth()
-    {
-        if (!_brain.IsBattled)
-        {
-            crtHP = maxHP;
-            _healthBar.visible = false;
-        }
     }
 
 
