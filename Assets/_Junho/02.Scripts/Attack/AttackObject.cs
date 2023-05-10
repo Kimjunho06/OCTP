@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class AttackObject : MonoBehaviour
 {
-    public float damage = 3;
+    public float damage = 10;
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision collision)
     {
-        if (other.gameObject.GetComponent<IDamageable>() != null)
+        if (collision.gameObject.GetComponent<IDamageable>() != null)
         {
-            other.gameObject.GetComponent<IDamageable>().OnDamage(damage);
+            collision.gameObject.GetComponent<IDamageable>().OnDamage(damage);
         }
     }
 }
