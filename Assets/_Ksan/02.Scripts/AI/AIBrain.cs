@@ -7,7 +7,7 @@ using UnityEngine.AI;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-public class AIBrain : MonoBehaviour, IDamageable, IInteractable
+public class AIBrain : MonoBehaviour, IDamageable
 {
     [SerializeField] private AIState _currentState;
     private AIStateInfo _stateInfo;
@@ -48,6 +48,10 @@ public class AIBrain : MonoBehaviour, IDamageable, IInteractable
 
     protected virtual void Update() {
         _currentState.UpdateState();
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            OnDamage(10);
+        }
 
         //StateInfo에 쿨들을 샐성해두고 쿨 관리해야함
         SkillCollDown();
@@ -88,9 +92,4 @@ public class AIBrain : MonoBehaviour, IDamageable, IInteractable
     }
 
     public void IsOffBattleState() => IsBattled = false;
-
-    public void Interaction()
-    {
-        OnDamage(10);
-    }
 }

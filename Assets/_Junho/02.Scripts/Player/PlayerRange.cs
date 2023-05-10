@@ -40,7 +40,6 @@ public class PlayerRange : MonoBehaviour
 
         }
 
-
         if (_cols.Length < 1)
         {
             obj = null;
