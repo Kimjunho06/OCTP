@@ -2,49 +2,55 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum AttackState
-{
-    BITE,
-    SCRATCH
-}
-
 public class PlayerAttack : MonoBehaviour
 {
-    AttackState state;
+    // private Animator _animator;
+
+    private void Awake()
+    {
+        // _animator = GetComponent<Animator>();
+    }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            RandomAttack();
-            AttackAnimation(state);
+            AttackAnimation(RandomAttack());
         }
     }
 
-    private void RandomAttack()
+    private void Attack()
+    {
+        /*
+        
+        if (gameObject.GetComponent<IDamage>() != null)
+        {
+            gameObject.GetComponent<IDamage>().OnDamage;
+        }
+        
+        */
+    }
+
+    private string RandomAttack()
     {
         int random = Random.Range(0, 2);
 
         switch (random)
         {
             case 0:
-                state = AttackState.BITE;
-                Attack(state, 2);
-                break;
+                return "Bite";
             case 1:
-                state = AttackState.SCRATCH;
-                Attack(state, 4);
-                break;
+                return "Scratch";
+            default:
+                return "Idle";
         }
     }
 
-    private void AttackAnimation(AttackState state)
+    private void AttackAnimation(string playAnim)
     {
-
+        // _animator.SetTrigger(playAnim);       
+        print(playAnim + " 애니메이션 실행");
     }
 
-    private void Attack(AttackState state, float range)
-    {
-
-    }
+    
 }
