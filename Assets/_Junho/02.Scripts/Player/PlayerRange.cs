@@ -47,7 +47,7 @@ public class PlayerRange : MonoBehaviour
         }
         else
         {
-            _agentInput.OnInteractionEvent = obj.Interaction;
+            _agentInput.OnInteractionEvent = obj.Interact;
         }
     }
 
