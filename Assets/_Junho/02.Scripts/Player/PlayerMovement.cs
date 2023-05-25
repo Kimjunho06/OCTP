@@ -17,8 +17,6 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody _playerRb;
     private Transform _camTrm;
 
-    private CinemachineFreeLook _freeLookCam;
-
     private LayerMask _groundLayer;
 
     private void Awake()
@@ -26,7 +24,6 @@ public class PlayerMovement : MonoBehaviour
         _playerInput = GetComponent<PlayerInput>();
         _playerRb = GetComponent<Rigidbody>();
         _camTrm = Camera.main.transform;
-        _freeLookCam = FindObjectOfType<CinemachineFreeLook>();
 
         _groundLayer = LayerMask.GetMask("Ground");
     }
@@ -74,11 +71,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnRotate()
     {
-        if (_freeLookCam.m_XAxis.m_InputAxisValue >= 0 && Input.GetKey(KeyCode.D))
-        {
-            return;
-        }
-        if (_freeLookCam.m_XAxis.m_InputAxisValue <= 0 && Input.GetKey(KeyCode.A))
+        if (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.D))
         {
             return;
         }

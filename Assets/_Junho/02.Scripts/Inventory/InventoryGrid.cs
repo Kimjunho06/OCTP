@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class InventoryGrid : MonoBehaviour
 {//
-    public const float tileSizeWidth = 32;  // 타일 가로
-    public const float tileSizeHeight = 32; // 타일 세로
+    public const float tileSizeWidth = 64;  // 타일 가로
+    public const float tileSizeHeight = 64; // 타일 세로
 
     private InventoryItem[,] inventoryItemSlot; // 인벤토리 칸에 넣거나 집거나 겹치는거 확인하기 위함
 
