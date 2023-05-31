@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class ItemDropper : MonoBehaviour, IInteractable
@@ -10,6 +12,8 @@ public class ItemDropper : MonoBehaviour, IInteractable
 
     [SerializeField] private Slider _gauge;
     private bool _isFound = false;
+
+    public UnityEvent OnActionEndTrigger = null;
 
     public void Interact()
     {
@@ -37,5 +41,7 @@ public class ItemDropper : MonoBehaviour, IInteractable
             }
             yield return null;
         }
+
+        OnActionEndTrigger.Invoke();
     }
 }
