@@ -79,7 +79,7 @@ public class InventoryManager : MonoBehaviour
         // isActive = !inventoryPanel.activeSelf;
     }
 
-    private void OnInventory() => inventoryPanel.SetActive(isActive);
+    public void OnInventory(bool value) => inventoryPanel.SetActive(value);
 
     private void RotateItem(int clockwise = 1) // 아이템 회전
     {
