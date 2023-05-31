@@ -47,7 +47,8 @@ public class PlayerRange : MonoBehaviour
         }
         else
         {
-            _agentInput.OnInteractionEvent = obj.Interact;
+            print("You can Play InteractEvent!!");
+            _agentInput.OnInteractionEvent = obj.Interact; // 쓰레기통이나 그런 곳 아이템 수집전 게이지 바 차는거 그쪽 스크립트에서 해야함, 적 데미지 주는 것 또한 저쪽 스크립트에서 해야함
         }
     }
 
