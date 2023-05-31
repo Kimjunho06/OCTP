@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class ItemDropper : MonoBehaviour, IInteractable
 {
     [SerializeField] private GameObject _prefab;
+    [SerializeField] private ItemTable _table;
     [SerializeField] private float _duration;
 
     [SerializeField] private Slider _gauge;
