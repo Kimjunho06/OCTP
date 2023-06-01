@@ -38,9 +38,10 @@ public class InventoryItem : MonoBehaviour
     public bool rotated = false;
 
 
-    internal void Set(ItemSO itemData) // 인벤토리 아이템 이미지와 사이즈 설정
+    public void Set(ItemSO itemData) // 인벤토리 아이템 이미지와 사이즈 설정
     {
         this.itemData = itemData;
+        if (itemData == null) return;
 
         GetComponent<Image>().sprite = itemData.itemicon;
 

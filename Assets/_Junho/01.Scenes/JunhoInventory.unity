@@ -275,6 +275,18 @@ PrefabInstance:
       value: 600
       objectReference: {fileID: 0}
     - target: {fileID: 702243594501708831, guid: 3a24c837ca715f84f91738e989bc0c81, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 702243594501708831, guid: 3a24c837ca715f84f91738e989bc0c81, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 702243594501708831, guid: 3a24c837ca715f84f91738e989bc0c81, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 702243594501708831, guid: 3a24c837ca715f84f91738e989bc0c81, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 140
       objectReference: {fileID: 0}
@@ -676,6 +688,52 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 702243594501708830, guid: 3a24c837ca715f84f91738e989bc0c81, type: 3}
   m_PrefabInstance: {fileID: 974524515}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1089290147
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1089290148}
+  - component: {fileID: 1089290149}
+  m_Layer: 0
+  m_Name: CombineManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1089290148
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1089290147}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1089290149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1089290147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627b81e4a3996514fb83b3115f45cb7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  recipes:
+  - {fileID: 11400000, guid: d552acb1a8f12394cb7eab5ae22f40b4, type: 2}
 --- !u!1 &1251381185
 GameObject:
   m_ObjectHideFlags: 0
@@ -920,6 +978,8 @@ MonoBehaviour:
   selectedItemGrid: {fileID: 1418643811}
   items:
   - {fileID: 11400000, guid: 2de2a66bd9fe080468d03b04ffa14e76, type: 2}
+  - {fileID: 11400000, guid: 42a09ea72455e6c4aa1ad860dea61b09, type: 2}
+  - {fileID: 11400000, guid: 570f14b78b465454099439458c30377c, type: 2}
   itemPrefab: {fileID: 3544344355433292725, guid: c23f07a4154f56543887f25a546c4423, type: 3}
   canvasTransform: {fileID: 1925399930}
   inventoryPanel: {fileID: 974524517}

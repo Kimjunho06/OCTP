@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Net.NetworkInformation;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -30,7 +31,6 @@ public class InventoryManager : MonoBehaviour
     private RectTransform rectTransform;
 
     private bool isMove = false;
-    private bool isActive = false;
 
 
     private void Awake()
@@ -54,7 +54,7 @@ public class InventoryManager : MonoBehaviour
             selectedItem = null;
         });
 
-        inventoryLooseBtn.onClick.AddListener(LooseItem);
+        inventoryLooseBtn.onClick.AddListener(() => LooseItem(selectedItem));
         inventoryMoveBtn.onClick.AddListener(MoveItem);
 
         // isActive = inventoryPanel.activeSelf;
@@ -65,7 +65,8 @@ public class InventoryManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            CreateRandomItem();
+            int random = Random.Range(0, items.Count);
+            CreateRandomItem(items[random]);
         }
 
         if (selectedItemGrid == null) return; // 인벤토리 칸이 없다면 실행 안시키기 위함
@@ -107,16 +108,28 @@ public class InventoryManager : MonoBehaviour
         MoveItem();
     }
 
-    private void CreateRandomItem() // 랜덤 아이템 생성 테스트용
+    private InventoryItem CreateRandomItem(ItemSO itemSO) // 랜덤 아이템 생성 테스트용
     {
+        if (itemSO == null) return null;
         InventoryItem inventoryItem = Instantiate(itemPrefab).GetComponent<InventoryItem>();
         selectedItem = inventoryItem; // 아이템 집었다 판정
 
         rectTransform = inventoryItem.GetComponent<RectTransform>();
         rectTransform.SetParent(canvasTransform);
 
-        int selectedItemID = UnityEngine.Random.Range(0, items.Count);
+        int selectedItemID = 0;
+        
+        for (int i = 0; i < items.Count; i++)
+        {
+            if (itemSO == items[i])
+            {
+                selectedItemID = i;
+                break;
+            }
+        }
+
         inventoryItem.Set(items[selectedItemID]);
+        return inventoryItem;
     }
 
     private void LeftMouseButtonPress()
@@ -130,8 +143,6 @@ public class InventoryManager : MonoBehaviour
         }
 
         Vector2Int tileGridPosition = selectedItemGrid.GetTileGridPosition(position); // 마우스 위치 받아오기 
-
-        print(tileGridPosition);
 
         if (selectedItem == null) // 아이템을 안집었다면
         {
@@ -148,25 +159,39 @@ public class InventoryManager : MonoBehaviour
 
     private void PlaceItem(Vector2Int tileGridPosition) // 아이템 위치 두기
     {
-        bool complete = selectedItemGrid.PlaceItem(selectedItem, tileGridPosition.x, tileGridPosition.y, ref overlapItem); // 집은 아이템을 두었는가
+        bool complete = selectedItemGrid.PlaceItem(selectedItem, tileGridPosition.x, tileGridPosition.y, ref overlapItem); // 집은 아이템을 두었는가 
 
-        if (complete) // 집은 아이템을 뒀다면
+        if (complete) // 집은 아이템을 뒀다면 
         {
-            selectedItem = null; // 집은 아이템 없애기
-
-            isMove = false;
-            inventoryMoveImage.sprite = null;
-
-            if (overlapItem != null) // 중복된 위치에 아이템이 있다면
+            if (overlapItem != null) // 중복된 위치에 아이템이 있다면 
             {
-                selectedItem = overlapItem; // 손에 집기
-                overlapItem = null; // 중복될 아이템 없애기
-                rectTransform = selectedItem.GetComponent<RectTransform>(); // 이동 시키도록 transform 받아오기
+                InventoryItem beforeitem = selectedItem;
+                InventoryItem beforeOveritem = overlapItem;
+                InventoryItem combineitem;
+                combineitem = CreateRandomItem(CombineManager.Instance.Combine(selectedItem.itemData, overlapItem.itemData));
+
+                if (combineitem != null)
+                {
+                    combineitem.transform.SetParent(selectedItemGrid.transform);
+                    selectedItem = combineitem;
+                    PlaceItem(new Vector2Int(beforeOveritem.onGridPositionX, beforeOveritem.onGridPositionY));
+                }
+
+                isMove = false;
+                LooseItem(beforeOveritem);
+                LooseItem(beforeitem);
+                
+
+                // rectTransform = selectedItem.GetComponent<RectTransform>(); // 이동 시키도록 transform 받아오기 
 
                 // 놓았을 때 겹친 아이템 select창 띄우고 이미지 띄우기 
             }
-        }
 
+            selectedItem = null; // 집은 아이템 없애기 
+
+            isMove = false;
+            inventoryMoveImage.sprite = null;
+        }
     }
 
     private void PickUpItem(Vector2Int tileGridPosition) // 아이템 집기 만약 집었다면 이동을 위한 transform 가져오기
@@ -188,10 +213,10 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    private void LooseItem()
+    public void LooseItem(InventoryItem looseitem)
     {
         inventorySelectPanel.SetActive(false);
-        Destroy(selectedItem.gameObject);
+        Destroy(looseitem.gameObject);
     }
 
     private void MoveItem()

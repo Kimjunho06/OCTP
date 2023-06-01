@@ -73,6 +73,7 @@ public class InventoryGrid : MonoBehaviour
         if (OverlapCheck(posX, posY, inventoryItem.WIDTH, inventoryItem.HEIGHT, ref overlapItem) == false) // 중복이라면 실행 안함
         {
             overlapItem = null;
+
             return false;
         }
 

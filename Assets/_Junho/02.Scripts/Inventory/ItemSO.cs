@@ -9,5 +9,4 @@ public class ItemSO : ScriptableObject // 인벤토리 SO
     public int height = 1;
 
     public Sprite itemicon;
-    public GameObject prefab; // 게임씬에 떨어진 모델
 }
