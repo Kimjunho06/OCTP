@@ -23,8 +23,13 @@ public class ItemDropper : MonoBehaviour, IInteractable
             _gauge.gameObject.SetActive(true);
             _isFound = true;
             print($"is Interacted!! : {this.name}");
+            OnActionEndTrigger.AddListener(()=>{ObjectActive(false);});
             StartCoroutine(FillGauge(_duration));
         }
+    }
+
+    private void ObjectActive(bool value){
+        gameObject.SetActive(value);
     }
 
     private IEnumerator FillGauge(float duration)

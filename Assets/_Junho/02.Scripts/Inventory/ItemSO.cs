@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu]
-public class ItemSO : ScriptableObject // ÀÎº¥Åä¸® SO
+public class ItemSO : ScriptableObject // ï¿½Îºï¿½ï¿½ä¸® SO
 {
     public int width = 1;
     public int height = 1;
 
     public Sprite itemicon;
-    public GameObject prefab; // °ÔÀÓ¾À¿¡ ¶³¾îÁø ¸ðµ¨
+    public GameObject prefab; // ï¿½ï¿½ï¿½Ó¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 }

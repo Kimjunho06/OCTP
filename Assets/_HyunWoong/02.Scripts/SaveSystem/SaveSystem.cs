@@ -4,31 +4,79 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[Serializable]
-public class Data{
-    public int index;
-};
 
-public class SaveSystem : MonoBehaviour
+public class SaveSystem : MonoSingleton<SaveSystem>
 {
     public string filePath;
     public string fileName;
 
-    Data data = new Data();
+    public Data Data{get;set;}
+
+    private void Start() {
+        this.Data = new Data();
+    }
 
     [ContextMenu("세이브!")]
-    public void Save(){
-        if(!Directory.Exists(filePath)){
-            Directory.CreateDirectory(filePath);
+    public void Save()
+    {
+        string fullPath = Path.Combine(filePath, fileName);
 
-            if(!File.Exists(fileName)){
-                    
+        try
+        {
+            if (!Directory.Exists(fullPath))
+            {
+                Directory.CreateDirectory(Path.GetDirectoryName(fullPath));
             }
-            else{
+
+            string json = JsonUtility.ToJson(Data, true);
+
+            using (FileStream stream = new FileStream(fullPath, FileMode.Create))
+            {
+                using (StreamWriter write = new StreamWriter(stream))
+                {
+                    write.Write(json);
+                }
             }
         }
-        else{
-
+        catch (Exception e)
+        {
+            Debug.LogError($"Save Error error_message: {e.Message}");
         }
+
+        print(Data.itemCnt);
+    }
+
+    public void NewGame()
+    {
+        this.Data = new Data();//데이터 새로 만들어서 넣어줌
+    }
+
+    [ContextMenu("LoadData")]
+    public void Load()
+    {
+        string fullPath = Path.Combine(filePath, fileName);
+        try
+        {
+            string loadData = "";
+            using (FileStream stream = new FileStream(fullPath, FileMode.Open))
+            {
+                using (StreamReader reader = new StreamReader(stream))
+                {
+                    loadData = reader.ReadToEnd();
+                }
+            }
+            this.Data = JsonUtility.FromJson<Data>(loadData);
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"Load Error error_message: {e.Message}");
+        }
+
+        print(Data.itemCnt);
+    }
+
+    private void OnApplicationQuit()
+    {
+        Save();//나갈때 세이브해줌
     }
 }
