@@ -43,7 +43,7 @@ public class SaveSystem : MonoSingleton<SaveSystem>
             Debug.LogError($"Save Error error_message: {e.Message}");
         }
 
-        print(Data.itemCnt);
+        print("Save sucessed!");
     }
 
     public void NewGame()
@@ -71,8 +71,6 @@ public class SaveSystem : MonoSingleton<SaveSystem>
         {
             Debug.LogError($"Load Error error_message: {e.Message}");
         }
-
-        print(Data.itemCnt);
     }
 
     private void OnApplicationQuit()

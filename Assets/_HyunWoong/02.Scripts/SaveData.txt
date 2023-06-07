@@ -1,5 +1,0 @@
-{
-    "index": 0,
-    "curDate": 0,
-    "itemCnt": 0
-}

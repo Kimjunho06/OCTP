@@ -7,7 +7,6 @@ public class TestPlayerMovement : MonoBehaviour
     private Rigidbody rb;
     [SerializeField]private float _speed;
 
-
     private void Awake() {
         rb = GetComponent<Rigidbody>();
     }

@@ -30,9 +30,6 @@ public class ItemClass : MonoBehaviour
 
     private void OnCollisionEnter(Collision other) {
         if(other.collider.CompareTag("Player")){
-            print("Get Item");
-            print(SaveSystem.Instance);//잘 나옴
-            ++SaveSystem.Instance.Data.itemCnt;
             Destroy(gameObject);
         }
     }
