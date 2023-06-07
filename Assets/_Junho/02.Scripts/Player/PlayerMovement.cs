@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     public float _jumpPower;
     public int _jumpMaxCount;
 
+    public float _groundRayDistance;
 
     private int _jumpCount;
 
@@ -83,7 +84,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (_playerRb.velocity.y < 0)
         {
-            if (_playerInput.RayCheck(transform.position, Vector3.down, 0.6f, _groundLayer))
+            if (_playerInput.RayCheck(transform.position, Vector3.down, _groundRayDistance, _groundLayer))
             {
                 _jumpCount = 1;
             }
@@ -94,6 +95,6 @@ public class PlayerMovement : MonoBehaviour
     {
         Gizmos.color = Color.red;
 
-        Gizmos.DrawRay(transform.position, Vector3.down * 0.6f);
+        Gizmos.DrawRay(transform.position, Vector3.down * _groundRayDistance);
     }
 }

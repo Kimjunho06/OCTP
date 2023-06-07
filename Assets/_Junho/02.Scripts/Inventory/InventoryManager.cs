@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Net.NetworkInformation;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -30,7 +31,6 @@ public class InventoryManager : MonoBehaviour
     private RectTransform rectTransform;
 
     private bool isMove = false;
-    private bool isActive = false;
 
 
     private void Awake()
@@ -54,7 +54,7 @@ public class InventoryManager : MonoBehaviour
             selectedItem = null;
         });
 
-        inventoryLooseBtn.onClick.AddListener(LooseItem);
+        inventoryLooseBtn.onClick.AddListener(() => LooseItem(selectedItem));
         inventoryMoveBtn.onClick.AddListener(MoveItem);
 
         // isActive = inventoryPanel.activeSelf;
@@ -65,10 +65,11 @@ public class InventoryManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            CreateRandomItem();
+            int random = Random.Range(0, items.Count);
+            CreateRandomItem(items[random]);
         }
 
-        if (selectedItemGrid == null) return; // ï¿½Îºï¿½ï¿½ä¸® Ä­ï¿½ï¿½ ï¿½ï¿½ï¿½Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½È½ï¿½Å°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        if (selectedItemGrid == null) return; // ÀÎº¥Åä¸® Ä­ÀÌ ¾ø´Ù¸é ½ÇÇà ¾È½ÃÅ°±â À§ÇÔ
 
         if (Input.GetMouseButtonDown(0))
         {
@@ -81,23 +82,23 @@ public class InventoryManager : MonoBehaviour
 
     public void OnInventory(bool value) => inventoryPanel.SetActive(value);
 
-    private void RotateItem(int clockwise = 1) // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È¸ï¿½ï¿½
+    private void RotateItem(int clockwise = 1) // ¾ÆÀÌÅÛ È¸Àü
     {
         Vector2Int before = new Vector2Int(selectedItem.onGridPositionX, selectedItem.onGridPositionY);
         InventoryItem beforeItem = selectedItem;
 
-        if (selectedItem == null) { return; } // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        if (selectedItem == null) { return; } // ÁýÀº ¾ÆÀÌÅÛÀÌ ¾ø´Ù¸é ½ÇÇà ¾ÈÇÔ
         selectedItemGrid.OverlapCheck(selectedItem.onGridPositionX, selectedItem.onGridPositionY, selectedItem.HEIGHT, selectedItem.WIDTH, ref overlapItem);
 
         if (overlapItem != null)
         {
-            print("ï¿½ï¿½Ä§");
+            print("°ãÄ§");
             return;
         }
         else
         {
             selectedItem.Rotate(clockwise);
-            print("ï¿½È°ï¿½Ä§");
+            print("¾È°ãÄ§");
         }
 
         PlaceItem(before);
@@ -107,69 +108,98 @@ public class InventoryManager : MonoBehaviour
         MoveItem();
     }
 
-    private void CreateRandomItem() // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½×½ï¿½Æ®ï¿½ï¿½
+    private InventoryItem CreateRandomItem(ItemSO itemSO) // ·£´ý ¾ÆÀÌÅÛ »ý¼º Å×½ºÆ®¿ë
     {
+        if (itemSO == null) return null;
         InventoryItem inventoryItem = Instantiate(itemPrefab).GetComponent<InventoryItem>();
-        selectedItem = inventoryItem; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        inventoryItem.transform.position = new Vector2(-100, -100);
+        selectedItem = inventoryItem; // ¾ÆÀÌÅÛ Áý¾ú´Ù ÆÇÁ¤
 
         rectTransform = inventoryItem.GetComponent<RectTransform>();
         rectTransform.SetParent(canvasTransform);
 
-        int selectedItemID = UnityEngine.Random.Range(0, items.Count);
+        int selectedItemID = 0;
+        
+        for (int i = 0; i < items.Count; i++)
+        {
+            if (itemSO == items[i])
+            {
+                selectedItemID = i;
+                break;
+            }
+        }
+
         inventoryItem.Set(items[selectedItemID]);
+        return inventoryItem;
     }
 
     private void LeftMouseButtonPress()
     {
         Vector2 position = Input.mousePosition;
 
-        if (selectedItem != null) // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ù¸ï¿½
+        if (selectedItem != null) // ¾ÆÀÌÅÛÀ» Áý¾ú´Ù¸é
         {
             position.x -= (selectedItem.WIDTH - 1) * InventoryGrid.tileSizeWidth / 2;
             position.y += (selectedItem.HEIGHT - 1) * InventoryGrid.tileSizeHeight / 2;
         }
 
-        Vector2Int tileGridPosition = selectedItemGrid.GetTileGridPosition(position); // ï¿½ï¿½ï¿½ì½º ï¿½ï¿½Ä¡ ï¿½Þ¾Æ¿ï¿½ï¿½ï¿½ 
+        Vector2Int tileGridPosition = selectedItemGrid.GetTileGridPosition(position); // ¸¶¿ì½º À§Ä¡ ¹Þ¾Æ¿À±â 
 
-        print(tileGridPosition);
-
-        if (selectedItem == null) // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ù¸ï¿½
+        if (selectedItem == null) // ¾ÆÀÌÅÛÀ» ¾ÈÁý¾ú´Ù¸é
         {
-            PickUpItem(tileGridPosition); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+            PickUpItem(tileGridPosition); // ¾ÆÀÌÅÛ Áý±â
         }
-        else // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ù¸ï¿½
+        else // ¾ÆÀÌÅÛÀ» Áý¾ú´Ù¸é
         {
             if (isMove)
             {
-                PlaceItem(tileGridPosition); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½Ï±ï¿½
+                PlaceItem(tileGridPosition); // ¾ÆÀÌÅÛ À§Ä¡ Á¤ÇÏ±â
             }
         }
     }
 
-    private void PlaceItem(Vector2Int tileGridPosition) // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½Î±ï¿½
+    private void PlaceItem(Vector2Int tileGridPosition) // ¾ÆÀÌÅÛ À§Ä¡ µÎ±â
     {
-        bool complete = selectedItemGrid.PlaceItem(selectedItem, tileGridPosition.x, tileGridPosition.y, ref overlapItem); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Î¾ï¿½ï¿½Â°ï¿½
+        bool complete = selectedItemGrid.PlaceItem(selectedItem, tileGridPosition.x, tileGridPosition.y, ref overlapItem); // ÁýÀº ¾ÆÀÌÅÛÀ» µÎ¾ú´Â°¡ 
 
-        if (complete) // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½×´Ù¸ï¿½
+        if (complete) // ÁýÀº ¾ÆÀÌÅÛÀ» µ×´Ù¸é 
         {
-            selectedItem = null; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ö±ï¿½
+            if (overlapItem != null) // Áßº¹µÈ À§Ä¡¿¡ ¾ÆÀÌÅÛÀÌ ÀÖ´Ù¸é 
+            {
+                InventoryItem beforeitem = selectedItem;
+                InventoryItem beforeOveritem = overlapItem;
+                InventoryItem combineitem;
+                combineitem = CreateRandomItem(CombineManager.Instance.Combine(selectedItem.itemData, overlapItem.itemData));
+
+                if (combineitem != null)
+                {
+                    LooseItem(beforeOveritem);
+                    LooseItem(beforeitem);
+                    combineitem.transform.SetParent(selectedItemGrid.transform);
+                    selectedItem = combineitem;
+                    PlaceItem(new Vector2Int(beforeOveritem.onGridPositionX, beforeOveritem.onGridPositionY));
+                    inventoryMoveImage.sprite = combineitem.itemData.itemicon;
+                    return;
+                }
+
+                isMove = false;
+                LooseItem(beforeOveritem);
+                LooseItem(beforeitem);
+                
+
+                // rectTransform = selectedItem.GetComponent<RectTransform>(); // ÀÌµ¿ ½ÃÅ°µµ·Ï transform ¹Þ¾Æ¿À±â 
+
+                // ³õ¾ÒÀ» ¶§ °ãÄ£ ¾ÆÀÌÅÛ selectÃ¢ ¶ç¿ì°í ÀÌ¹ÌÁö ¶ç¿ì±â 
+            }
+
+            selectedItem = null; // ÁýÀº ¾ÆÀÌÅÛ ¾ø¾Ö±â 
 
             isMove = false;
             inventoryMoveImage.sprite = null;
-
-            if (overlapItem != null) // ï¿½ßºï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´Ù¸ï¿½
-            {
-                selectedItem = overlapItem; // ï¿½Õ¿ï¿½ ï¿½ï¿½ï¿½ï¿½
-                overlapItem = null; // ï¿½ßºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ö±ï¿½
-                rectTransform = selectedItem.GetComponent<RectTransform>(); // ï¿½Ìµï¿½ ï¿½ï¿½Å°ï¿½ï¿½ï¿½ï¿½ transform ï¿½Þ¾Æ¿ï¿½ï¿½ï¿½
-
-                // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½Ä£ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ selectÃ¢ ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 
-            }
         }
-
     }
 
-    private void PickUpItem(Vector2Int tileGridPosition) // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ù¸ï¿½ ï¿½Ìµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ transform ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    private void PickUpItem(Vector2Int tileGridPosition) // ¾ÆÀÌÅÛ Áý±â ¸¸¾à Áý¾ú´Ù¸é ÀÌµ¿À» À§ÇÑ transform °¡Á®¿À±â
     {
         selectedItem = selectedItemGrid.PickUpItem(tileGridPosition.x, tileGridPosition.y);
         if (selectedItem != null)
@@ -188,10 +218,10 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    private void LooseItem()
+    public void LooseItem(InventoryItem looseitem)
     {
         inventorySelectPanel.SetActive(false);
-        Destroy(selectedItem.gameObject);
+        Destroy(looseitem.gameObject);
     }
 
     private void MoveItem()
@@ -200,6 +230,6 @@ public class InventoryManager : MonoBehaviour
         inventorySelectPanel.SetActive(false);
         inventoryMoveImage.sprite = selectedItem.itemData.itemicon;
 
-        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ loose ï¿½ï¿½Å°ï¿½ï¿½
+        // ¹ÛÀ» ´©¸£¸é loose ½ÃÅ°±â
     }
 }

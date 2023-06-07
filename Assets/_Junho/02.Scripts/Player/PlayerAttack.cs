@@ -15,7 +15,7 @@ public class PlayerAttack : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            AttackAnimation(RandomAttack());
+
         }
     }
 
@@ -29,21 +29,6 @@ public class PlayerAttack : MonoBehaviour
         }
         
         */
-    }
-
-    private string RandomAttack()
-    {
-        int random = Random.Range(0, 2);
-
-        switch (random)
-        {
-            case 0:
-                return "Bite";
-            case 1:
-                return "Scratch";
-            default:
-                return "Idle";
-        }
     }
 
     private void AttackAnimation(string playAnim)
