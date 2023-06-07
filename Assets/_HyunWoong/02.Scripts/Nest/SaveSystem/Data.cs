@@ -5,12 +5,13 @@ using System.Collections.Generic;
 public class Data
 {
     public int date;
-    public List<bool> isOnSpaceshipParts;
+    public bool[] list = new bool[20];
 
     public Data()
     {
-        for(int i = 0; i < isOnSpaceshipParts.Count; ++i){
-            isOnSpaceshipParts[i] = false;
+        date = 0;
+        for(int i = 0; i < list.Length; ++i){
+            list[i] = false;
         }
     }
 };

@@ -19,6 +19,5 @@ public class SpaceshipConstruction : MonoBehaviour, IInteractable
 
     public void Interact()
     {
-        
     }
 }

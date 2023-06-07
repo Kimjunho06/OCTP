@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,6 +6,7 @@ using UnityEngine;
 public class TestPlayerMovement : MonoBehaviour
 {
     private Rigidbody rb;
+
     [SerializeField]private float _speed;
 
     private void Awake() {

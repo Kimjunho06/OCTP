@@ -2,11 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class ItemClass : MonoBehaviour
 {
     private Rigidbody _rb;
     private ItemSO _so;
+
     private void Awake() {
         _rb = GetComponent<Rigidbody>();
     }
@@ -18,9 +20,9 @@ public class ItemClass : MonoBehaviour
     public void DropItem(Vector3 normal, float force, ForceMode mode){
         _rb.AddForce(normal * force, mode);
 
-        DelayCoroutine(.5f, ()=>{
+        StartCoroutine(DelayCoroutine(1f, ()=>{
             _rb.velocity = Vector3.zero;
-        });
+        }));
     }
 
     private IEnumerator DelayCoroutine(float duration, Action callback){
