@@ -1,9 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpaceshipConstruction : MonoBehaviour, IInteractable
-{
+public class SpaceshipConstruction : MonoBehaviour, IInteractable {
     public List<bool> isCollecting = new List<bool>();
     public GameObject[] objs;
 
@@ -11,14 +9,13 @@ public class SpaceshipConstruction : MonoBehaviour, IInteractable
         Sort();
     }
 
-    private void Sort(){
-        for(int i = 0; i < objs.Length; ++i){
+    private void Sort() {
+        for (int i = 0; i < objs.Length; ++i) {
             objs[i].SetActive(isCollecting[i]);
         }
     }
 
-    public void Interact()
-    {
-        
+    public void Interact() {
+
     }
 }

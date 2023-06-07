@@ -1,10 +1,6 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class InventoryGrid : MonoBehaviour
-{//
+public class InventoryGrid : MonoBehaviour {//
     public const float tileSizeWidth = 64;  // 타일 가로
     public const float tileSizeHeight = 64; // 타일 세로
 
@@ -84,10 +80,8 @@ public class InventoryGrid : MonoBehaviour
         RectTransform rectTransform = inventoryItem.GetComponent<RectTransform>();
         rectTransform.SetParent(this.rectTransform); // 자식으로 넣어주기
 
-        for (int x = 0; x < inventoryItem.WIDTH; x++)
-        {
-            for (int y = 0; y < inventoryItem.HEIGHT; y++)
-            {
+        for (int x = 0; x < inventoryItem.WIDTH; x++) {
+            for (int y = 0; y < inventoryItem.HEIGHT; y++) {
                 // x,y부터 사이즈 만큼 집은 아이템으로 바꿔준다
                 inventoryItemSlot[posX + x, posY + y] = inventoryItem;
             }
@@ -109,10 +103,8 @@ public class InventoryGrid : MonoBehaviour
 
     public bool OverlapCheck(int posX, int posY, int width, int height, ref InventoryItem overlapItem) // 중복 체크
     {
-        for (int x = 0; x < width; x++)
-        {
-            for (int y = 0; y < height; y++)
-            {
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
                 if (inventoryItemSlot[posX + x, posY + y] != null) // 아이템이 있다면
                 {
                     overlapItem = inventoryItemSlot[posX + x, posY + y]; // overlap에는 해당 아이템이 담긴다

@@ -1,9 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class PlayerRange : MonoBehaviour
-{
+public class PlayerRange : MonoBehaviour {
     [SerializeField] private float _radius = 0f; // ������
     [SerializeField] private LayerMask _getLayer;
 
@@ -12,48 +9,40 @@ public class PlayerRange : MonoBehaviour
 
     IInteractable obj = null;
 
-    private void Awake()
-    {
+    private void Awake() {
         _agentInput = GetComponent<PlayerInput>();
     }
 
-    private void Update()
-    {
+    private void Update() {
         CheckRange();
     }
 
-    private void CheckRange()
-    {
+    private void CheckRange() {
         _cols = Physics.OverlapSphere(transform.position, _radius, _getLayer);
 
         float closeDis = 1000;
 
-        foreach (Collider a in _cols)
-        {
+        foreach (Collider a in _cols) {
             float dis = Vector3.Distance(a.transform.position, transform.position);
-            if (dis < closeDis)
-            {
+            if (dis < closeDis) {
                 closeDis = dis;
                 obj = a.gameObject.GetComponent<IInteractable>();
             }
 
         }
 
-        if (_cols.Length < 1)
-        {
+        if (_cols.Length < 1) {
             obj = null;
             if (_agentInput.OnInteractionEvent != null)
                 _agentInput.OnInteractionEvent = null;
         }
-        else
-        {
+        else {
             _agentInput.OnInteractionEvent = obj.Interact;
         }
     }
 
 
-    private void OnDrawGizmos()
-    {
+    private void OnDrawGizmos() {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, _radius);
     }

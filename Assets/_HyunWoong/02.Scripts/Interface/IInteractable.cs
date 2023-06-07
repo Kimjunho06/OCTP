@@ -1,8 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-interface IInteractable
-{
+interface IInteractable {
     public void Interact();
 }

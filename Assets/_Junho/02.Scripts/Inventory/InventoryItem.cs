@@ -1,31 +1,21 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class InventoryItem : MonoBehaviour
-{
+public class InventoryItem : MonoBehaviour {
     public ItemSO itemData;
 
-    public int HEIGHT
-    {
-        get
-        {
-            if (rotated == false)
-            {
+    public int HEIGHT {
+        get {
+            if (rotated == false) {
                 return itemData.height;
             }
             return itemData.width;
         }
     }
 
-    public int WIDTH
-    {
-        get
-        {
-            if (rotated == false)
-            {
+    public int WIDTH {
+        get {
+            if (rotated == false) {
                 return itemData.width;
             }
             return itemData.height;
