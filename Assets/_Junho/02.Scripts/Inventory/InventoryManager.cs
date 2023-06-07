@@ -112,6 +112,7 @@ public class InventoryManager : MonoBehaviour
     {
         if (itemSO == null) return null;
         InventoryItem inventoryItem = Instantiate(itemPrefab).GetComponent<InventoryItem>();
+        inventoryItem.transform.position = new Vector2(-100, -100);
         selectedItem = inventoryItem; // 아이템 집었다 판정
 
         rectTransform = inventoryItem.GetComponent<RectTransform>();
@@ -172,9 +173,13 @@ public class InventoryManager : MonoBehaviour
 
                 if (combineitem != null)
                 {
+                    LooseItem(beforeOveritem);
+                    LooseItem(beforeitem);
                     combineitem.transform.SetParent(selectedItemGrid.transform);
                     selectedItem = combineitem;
                     PlaceItem(new Vector2Int(beforeOveritem.onGridPositionX, beforeOveritem.onGridPositionY));
+                    inventoryMoveImage.sprite = combineitem.itemData.itemicon;
+                    return;
                 }
 
                 isMove = false;
