@@ -15,5 +15,5 @@ MonoBehaviour:
   width: 1
   height: 1
   itemName: first aid kit
-  itemicon: {fileID: 21300000, guid: 02800fb9cff14da47a04572790384d8b, type: 3}
+  itemicon: {fileID: 21300000, guid: 9ab31728f9ff2b94e9ffb3ed026c013d, type: 3}
   itemCost: 70

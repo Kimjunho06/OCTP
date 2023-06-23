@@ -94,7 +94,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   titleText: {fileID: 2894364102310047569}
-  descriptionText: {fileID: 0}
+  iconSprite: {fileID: 0}
   costText: {fileID: 2894364101227433981}
 --- !u!1 &2894364101227433971
 GameObject:

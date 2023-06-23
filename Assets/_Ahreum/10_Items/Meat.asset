@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e0bfe5b4c8b79f344a34d8a7ef827afe, type: 3}
-  m_Name: Part
+  m_Name: Meat
   m_EditorClassIdentifier: 
   width: 1
   height: 1
-  itemName: part
-  itemicon: {fileID: 0}
-  itemCost: 100
+  itemName: meat
+  itemicon: {fileID: 21300000, guid: 2fa3f4af0f87e9342b3edebb9e5494f9, type: 3}
+  itemCost: 65
